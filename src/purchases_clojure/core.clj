@@ -18,6 +18,8 @@
 (defn purchases-html [purchases]
   [:html
    [:body
+    [:a {:href "/"} "All"]
+    " "
     [:a {:href "/Shoes"} "Shoes"]
     " "
     [:a {:href "/Alcohol"} "Alcohol"]
@@ -29,10 +31,21 @@
     [:a {:href "/Toiletries"} "Toiletries"]
     " "
     [:a {:href "/Food"} "Food"]
-    [:ol
-     (map (fn [purchase]
-            [:li (str (get purchase "customer_id") ", " (get purchase "date") ", " (get purchase "credit_card") ", " (get purchase "cvv") ", " (get purchase "category"))])
-        purchases)]]])   
+    [:table {:border "1"}
+     [:tr
+      [:th "Customer ID"]
+      [:th "Date"]
+      [:th "Credit Card"]
+      [:th "CVV"]
+      [:th "Category"]
+      (map (fn [purchase]
+            [:tr
+             [:td (get purchase "customer_id")]
+             [:td (get purchase "date")] 
+             [:td (get purchase "credit_card")] 
+             [:td (get purchase "cvv")]
+             [:td (get purchase "category")]])
+         purchases)]]]])   
 
 (defn filter-by-category [purchases category]
   (filter (fn [purchase]
